@@ -1,0 +1,28 @@
+{
+  "name": "blog-express",
+  "version": "1.0.0",
+  "main": "app.js", 
+  "scripts": {
+    "start": "node app.js", 
+    "build:css": "npx tailwindcss -i ./public/styles.css -o ./public/output.css --watch", 
+    "dev": "concurrently \"npm run build:css\" \"npm start\"" 
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "method-override": "^3.0.0",
+    "sequelize": "^6.37.5",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.2",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17"
+  }
+}

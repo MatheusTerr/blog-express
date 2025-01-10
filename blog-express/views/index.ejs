@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/output.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs" defer></script>
+  <title>Blog SciCrop®</title>
+</head>
+<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+
+  <!-- Navegação -->
+  <nav class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center px-4 py-3">
+      <a href="/" class="text-2xl font-bold text-blue-500">Blog SciCrop®</a>
+      <div>
+        <a href="/" class="text-gray-600 dark:text-gray-300 mx-3 hover:text-blue-500">Home</a>
+        <a href="/posts/new" class="text-gray-600 dark:text-gray-300 mx-3 hover:text-blue-500">Criar Post</a>
+      </div>
+      <button id="darkModeToggle" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1 rounded">
+        Dark Mode
+      </button>
+    </div>
+  </nav>
+
+  <!-- Banner Inicial -->
+  <section class="bg-blue-500 dark:bg-blue-700 text-white text-center py-10">
+    <div class="container mx-auto">
+      <h1 class="text-5xl font-bold mb-4">Bem-vindo ao meu blog</h1>
+      <p class="text-lg">Feito para compartilhas minha habilidades e conhecimentos</p>
+    </div>
+  </section>
+
+  <!-- Conteúdo Principal -->
+  <main class="container mx-auto my-10 px-4">
+    <h1 class="text-4xl font-bold mb-6 text-center">Últimos Posts</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% posts.forEach(post => { %>
+      <div class="bg-white dark:bg-gray-800 shadow-md rounded-md overflow-hidden hover:scale-105 transition-transform duration-200">
+        <div class="p-4">
+          <h2 class="text-2xl font-semibold text-blue-500"><%= post.title %></h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-2"><%= new Date(post.createdAt).toLocaleString() %></p>
+          <p class="mt-4 text-gray-700 dark:text-gray-300"><%= post.body.substring(0, 100) %>...</p>
+          <div class="flex justify-between items-center mt-4">
+            <a href="/posts/<%= post.id %>" class="text-blue-500 hover:underline">Ler mais</a>
+            <div class="flex gap-2">
+              <!-- Botão de Editar -->
+              <a href="/posts/<%= post.id %>/edit" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">Editar</a>
+              <!-- Botão de Excluir -->
+              <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este post?');">
+                <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Excluir</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="bg-gray-200 dark:bg-gray-800 text-center py-4">
+    <p class="text-gray-600 dark:text-gray-300">Desenvolvido por Matheus</p>
+  </footer>
+
+  <!-- Dark Mode Toggle Script -->
+  <script>
+    const toggle = document.getElementById('darkModeToggle');
+    const html = document.documentElement;
+
+    toggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+    });
+  </script>
+
+</body>
+</html>

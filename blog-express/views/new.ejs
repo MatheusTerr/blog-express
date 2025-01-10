@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/output.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs" defer></script>
+  <title>Criar Novo Post</title>
+</head>
+<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+
+  <!-- Navegação -->
+  <nav class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center px-4 py-3">
+      <a href="/" class="text-2xl font-bold text-blue-500">My Blog</a>
+      <a href="/" class="text-gray-600 dark:text-gray-300 mx-3 hover:text-blue-500">Voltar</a>
+    </div>
+  </nav>
+
+  <!-- Formulário Principal -->
+  <main class="container mx-auto my-10 px-4">
+    <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-md rounded-md p-8">
+      <h1 class="text-3xl font-bold mb-5 text-center">Novo Post</h1>
+      
+      <!-- Formulário -->
+      <form 
+        action="/posts" 
+        method="POST" 
+        x-data="formValidation()" 
+        @submit.prevent="validateForm"
+        class="space-y-6"
+      >
+        <!-- Campo do Título -->
+        <div>
+          <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Título</label>
+          <input 
+            type="text" 
+            id="title" 
+            name="title" 
+            x-model="title"
+            placeholder="Digite o título do post"
+            class="border border-gray-300 dark:border-gray-700 rounded w-full p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 transition"
+          >
+          <p x-show="titleError" class="text-red-500 text-sm mt-1" x-text="titleError"></p>
+        </div>
+
+        <!-- Campo do Conteúdo -->
+        <div>
+          <label for="body" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Conteúdo</label>
+          <textarea 
+            id="body" 
+            name="body" 
+            x-model="body"
+            placeholder="Digite o conteúdo do post"
+            class="border border-gray-300 dark:border-gray-700 rounded w-full p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 transition h-32"
+          ></textarea>
+          <p x-show="bodyError" class="text-red-500 text-sm mt-1" x-text="bodyError"></p>
+        </div>
+
+        <!-- Botão Modernizado -->
+        <button 
+          type="submit"
+          class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition focus:ring-2 focus:ring-blue-400 focus:outline-none"
+        >
+          Criar Post
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="bg-gray-200 dark:bg-gray-800 text-center py-4">
+    <p class="text-gray-600 dark:text-gray-300">Desenvolvido por Matheus</p>
+  </footer>
+
+  <!-- Validação de Formulário com Alpine.js -->
+  <script>
+    function formValidation() {
+      return {
+        title: '',
+        body: '',
+        titleError: '',
+        bodyError: '',
+        isSubmitting: false,
+        validateForm() {
+          this.titleError = '';
+          this.bodyError = '';
+          
+          // Validação dos campos
+          if (!this.title.trim()) {
+            this.titleError = 'O título é obrigatório.';
+          }
+          if (!this.body.trim()) {
+            this.bodyError = 'O conteúdo é obrigatório.';
+          }
+          
+          // Se não houver erros, enviar o formulário
+          if (!this.titleError && !this.bodyError) {
+            this.isSubmitting = true;
+            setTimeout(() => {
+              // Simula envio
+              document.querySelector('form').submit();
+            }, 1000); // Delay para mostrar animação de envio
+          }
+        }
+      };
+    }
+  </script>
+</body>
+</html>
